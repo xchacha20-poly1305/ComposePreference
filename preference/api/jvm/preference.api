@@ -44,9 +44,13 @@ public final class me/zhanghai/compose/preference/ComposableSingletons$MultiSele
 public final class me/zhanghai/compose/preference/ComposableSingletons$TextFieldPreferenceKt {
 	public static final field INSTANCE Lme/zhanghai/compose/preference/ComposableSingletons$TextFieldPreferenceKt;
 	public fun <init> ()V
-	public final fun getLambda$1675242031$ComposePreference_preference ()Lkotlin/jvm/functions/Function5;
-	public final fun getLambda$291328041$ComposePreference_preference ()Lkotlin/jvm/functions/Function3;
-	public final fun getLambda$343848498$ComposePreference_preference ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-1375449144$ComposePreference_preference ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$-1524798767$ComposePreference_preference ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$1559441354$ComposePreference_preference ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$3023647$ComposePreference_preference ()Lkotlin/jvm/functions/Function4;
+	public final fun getLambda$537641128$ComposePreference_preference ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$590161585$ComposePreference_preference ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda-1$ComposePreference_preference ()Lkotlin/jvm/functions/Function4;
 }
 
 public final class me/zhanghai/compose/preference/FooterPreferenceKt {
@@ -211,16 +215,30 @@ public final class me/zhanghai/compose/preference/SwitchPreferenceKt {
 public final class me/zhanghai/compose/preference/TextFieldPreferenceDefaults {
 	public static final field $stable I
 	public static final field INSTANCE Lme/zhanghai/compose/preference/TextFieldPreferenceDefaults;
-	public final fun getTextField ()Lkotlin/jvm/functions/Function5;
+	public final fun TextField (Lme/zhanghai/compose/preference/TextFieldPreferenceState;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;I)V
 }
 
 public final class me/zhanghai/compose/preference/TextFieldPreferenceKt {
-	public static final fun TextFieldPreference (Landroidx/compose/runtime/MutableState;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function5;Landroidx/compose/runtime/Composer;II)V
-	public static final fun TextFieldPreference (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function5;Landroidx/compose/runtime/Composer;II)V
-	public static final fun textFieldPreference (Landroidx/compose/foundation/lazy/LazyListScope;Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function5;)V
-	public static final fun textFieldPreference (Landroidx/compose/foundation/lazy/LazyListScope;Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function5;)V
-	public static synthetic fun textFieldPreference$default (Landroidx/compose/foundation/lazy/LazyListScope;Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function5;ILjava/lang/Object;)V
-	public static synthetic fun textFieldPreference$default (Landroidx/compose/foundation/lazy/LazyListScope;Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function5;ILjava/lang/Object;)V
+	public static final fun TextFieldPreference (Landroidx/compose/runtime/MutableState;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;Landroidx/compose/runtime/Composer;II)V
+	public static final fun TextFieldPreference (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;Landroidx/compose/runtime/Composer;II)V
+	public static final fun textFieldPreference (Landroidx/compose/foundation/lazy/LazyListScope;Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;)V
+	public static final fun textFieldPreference (Landroidx/compose/foundation/lazy/LazyListScope;Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;)V
+	public static synthetic fun textFieldPreference$default (Landroidx/compose/foundation/lazy/LazyListScope;Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;ZLkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;ILjava/lang/Object;)V
+	public static synthetic fun textFieldPreference$default (Landroidx/compose/foundation/lazy/LazyListScope;Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;ILjava/lang/Object;)V
+}
+
+public final class me/zhanghai/compose/preference/TextFieldPreferenceState {
+	public static final field $stable I
+	public fun <init> (Landroidx/compose/foundation/text/input/TextFieldState;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public final fun commit ()Z
+	public final fun getEditedValue ()Ljava/lang/Object;
+	public final fun getTextFieldState ()Landroidx/compose/foundation/text/input/TextFieldState;
+	public final fun isValid ()Z
+	public final fun revert ()V
+}
+
+public final class me/zhanghai/compose/preference/TextFieldPreferenceStateKt {
+	public static final fun rememberTextFieldPreferenceState (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Landroidx/compose/foundation/text/input/TextFieldState;Landroidx/compose/runtime/Composer;II)Lme/zhanghai/compose/preference/TextFieldPreferenceState;
 }
 
 public final class me/zhanghai/compose/preference/TwoTargetIconButtonPreferenceKt {

@@ -20,7 +20,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -35,8 +35,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.text.TextRange
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import composepreference.preference.generated.resources.Res
 import composepreference.preference.generated.resources.cancel
@@ -56,10 +54,10 @@ public inline fun <T> LazyListScope.textFieldPreference(
     noinline icon: @Composable ((T) -> Unit)? = null,
     noinline summary: @Composable ((T) -> Unit)? = null,
     noinline valueToText: (T) -> String = { it.toString() },
-    noinline textField:
-        @Composable
-        (value: TextFieldValue, onValueChange: (TextFieldValue) -> Unit, onOk: () -> Unit) -> Unit =
-        TextFieldPreferenceDefaults.TextField,
+    noinline textField: @Composable (state: TextFieldPreferenceState<T>, onOk: () -> Unit) -> Unit =
+        { state, onOk ->
+            TextFieldPreferenceDefaults.TextField(state, onOk)
+        },
 ) {
     item(key = key, contentType = "TextFieldPreference") {
         val state = rememberState()
@@ -89,10 +87,10 @@ public fun <T> LazyListScope.textFieldPreference(
     icon: @Composable (() -> Unit)? = null,
     summary: @Composable (() -> Unit)? = null,
     valueToText: (T) -> String = { it.toString() },
-    textField:
-        @Composable
-        (value: TextFieldValue, onValueChange: (TextFieldValue) -> Unit, onOk: () -> Unit) -> Unit =
-        TextFieldPreferenceDefaults.TextField,
+    textField: @Composable (state: TextFieldPreferenceState<T>, onOk: () -> Unit) -> Unit =
+        { state, onOk ->
+            TextFieldPreferenceDefaults.TextField(state, onOk)
+        },
 ) {
     item(key = key, contentType = "TextFieldPreference") {
         TextFieldPreference(
@@ -120,10 +118,10 @@ public fun <T> TextFieldPreference(
     icon: @Composable (() -> Unit)? = null,
     summary: @Composable (() -> Unit)? = null,
     valueToText: (T) -> String = { it.toString() },
-    textField:
-        @Composable
-        (value: TextFieldValue, onValueChange: (TextFieldValue) -> Unit, onOk: () -> Unit) -> Unit =
-        TextFieldPreferenceDefaults.TextField,
+    textField: @Composable (state: TextFieldPreferenceState<T>, onOk: () -> Unit) -> Unit =
+        { textFieldPreferenceState, onOk ->
+            TextFieldPreferenceDefaults.TextField(textFieldPreferenceState, onOk)
+        },
 ) {
     var value by state
     TextFieldPreference(
@@ -151,10 +149,10 @@ public fun <T> TextFieldPreference(
     icon: @Composable (() -> Unit)? = null,
     summary: @Composable (() -> Unit)? = null,
     valueToText: (T) -> String = { it.toString() },
-    textField:
-        @Composable
-        (value: TextFieldValue, onValueChange: (TextFieldValue) -> Unit, onOk: () -> Unit) -> Unit =
-        TextFieldPreferenceDefaults.TextField,
+    textField: @Composable (state: TextFieldPreferenceState<T>, onOk: () -> Unit) -> Unit =
+        { state, onOk ->
+            TextFieldPreferenceDefaults.TextField(state, onOk)
+        },
 ) {
     var openDialog by rememberSaveable { mutableStateOf(false) }
     Preference(
@@ -167,15 +165,15 @@ public fun <T> TextFieldPreference(
         openDialog = true
     }
     if (openDialog) {
-        var dialogText by
-            rememberSaveable(stateSaver = TextFieldValue.Saver) {
-                val text = valueToText(value)
-                mutableStateOf(TextFieldValue(text, TextRange(text.length)))
-            }
+        val dialogState =
+            rememberTextFieldPreferenceState(
+                value = value,
+                onValueChange = onValueChange,
+                valueToText = valueToText,
+                textToValue = textToValue,
+            )
         val onOk = {
-            val dialogValue = textToValue(dialogText.text)
-            if (dialogValue != null) {
-                onValueChange(dialogValue)
+            if (dialogState.commit()) {
                 openDialog = false
             }
         }
@@ -186,7 +184,9 @@ public fun <T> TextFieldPreference(
                 TextButton(onClick = { openDialog = false }) {
                     Text(text = stringResource(Res.string.cancel))
                 }
-                TextButton(onClick = onOk) { Text(text = stringResource(Res.string.ok)) }
+                TextButton(onClick = onOk, enabled = dialogState.isValid) {
+                    Text(text = stringResource(Res.string.ok))
+                }
             },
         ) {
             val focusRequester = remember { FocusRequester() }
@@ -196,7 +196,7 @@ public fun <T> TextFieldPreference(
                         .padding(horizontal = 24.dp)
                         .focusRequester(focusRequester)
             ) {
-                textField(dialogText, { dialogText = it }, onOk)
+                textField(dialogState, onOk)
             }
             LaunchedEffect(focusRequester) { focusRequester.requestFocus() }
         }
@@ -205,16 +205,14 @@ public fun <T> TextFieldPreference(
 
 @PublishedApi
 internal object TextFieldPreferenceDefaults {
-    val TextField:
-        @Composable
-        (value: TextFieldValue, onValueChange: (TextFieldValue) -> Unit, onOk: () -> Unit) -> Unit =
-        { value, onValueChange, onOk ->
-            OutlinedTextField(
-                value = value,
-                onValueChange = onValueChange,
-                modifier = Modifier.fillMaxWidth(),
-                keyboardActions = KeyboardActions { onOk() },
-                singleLine = true,
-            )
-        }
+    @Composable
+    fun <T> TextField(state: TextFieldPreferenceState<T>, onOk: () -> Unit) {
+        OutlinedTextField(
+            state = state.textFieldState,
+            modifier = Modifier.fillMaxWidth(),
+            isError = !state.isValid,
+            onKeyboardAction = { onOk() },
+            lineLimits = TextFieldLineLimits.SingleLine,
+        )
+    }
 }

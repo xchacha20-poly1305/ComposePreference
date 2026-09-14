@@ -23,10 +23,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation
+import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.maxLength
+import androidx.compose.foundation.text.input.then
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -34,6 +40,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import kotlin.math.roundToInt
 import me.zhanghai.compose.preference.ListPreferenceType
@@ -145,6 +152,28 @@ fun SampleScreen() {
                 title = { Text(text = "Text field preference") },
                 textToValue = { it },
                 summary = { Text(text = it) },
+            )
+            textFieldPreference(
+                key = "number_text_field_preference",
+                defaultValue = 42,
+                title = { Text(text = "Text field preference (number)") },
+                textToValue = { it.toIntOrNull() },
+                summary = { Text(text = it.toString()) },
+                textField = { state, onOk ->
+                    OutlinedTextField(
+                        state = state.textFieldState,
+                        modifier = Modifier.fillMaxWidth(),
+                        inputTransformation =
+                            InputTransformation.maxLength(9).then {
+                                if (!asCharSequence().all { it.isDigit() }) {
+                                    revertAllChanges()
+                                }
+                            },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        onKeyboardAction = { onOk() },
+                        lineLimits = TextFieldLineLimits.SingleLine,
+                    )
+                },
             )
             radioButtonPreference(
                 key = "radio_button_preference",
